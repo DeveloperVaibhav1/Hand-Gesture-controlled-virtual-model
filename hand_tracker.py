@@ -18,7 +18,7 @@ hands = mp_hands.Hands(max_num_hands=1, min_detection_confidence=0.7)
 mp_draw = mp.solutions.drawing_utils
 
 # Initialize the primary webcam
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 # ==========================================
 # 3. KINEMATIC MAPPING FUNCTION
@@ -53,12 +53,12 @@ while True:
             
             # Calculate Pan (X-Axis): Left/Right
             # Camera X goes 0.0 (Left) to 1.0 (Right). We map this to -45 to 45 degrees.
-            pan_angle = map_range(tracker_node.x, 0.0, 1.0, -60.0, 60.0)
+            pan_angle = map_range(tracker_node.x, 0.0, 1.0, -80.0, 80.0)
             
             # Calculate Tilt (Y-Axis): Up/Down
             # Camera Y goes 0.0 (Top) to 1.0 (Bottom). 
             # We map 0.0 (Top) to 30 degrees, and 1.0 (Bottom) to -30 degrees to invert the axis naturally.
-            tilt_angle = map_range(tracker_node.y, 0.0, 1.0, 45.0, -45.0)
+            tilt_angle = map_range(tracker_node.y, 0.0, 1.0, 60.0, -60.0)
             
             # Format and Broadcast the UDP Data
             message = f"{pan_angle},{tilt_angle}"
